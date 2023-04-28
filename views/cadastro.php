@@ -3,7 +3,7 @@ session_start();
 require_once('../config/db.php');
 
 if(isset($_SESSION['login'])){
-    header('../index.php');
+    header('location: ../index.php');
 }
 else{
     if(isset($_POST['btn'])){
@@ -12,27 +12,43 @@ else{
         $senha = md5($_POST['pass']);
         $cpf = $_POST['cpf'];
 
-        if(!isset($email) or $email == null){
-            echo("email invalido");
+        $sql = "SELECT * FROM tbusers WHERE email = '$email';";
+        $result = $db->query($sql);
+
+        if ($result->num_rows > 0) {
+            echo("email já logado");
         }
         else{
-            if(!isset($senha) or $senha == null){
-                echo("senha invalida");
+            if(!isset($email) or $email == null){
+                echo("email invalido");
             }
             else{
-                if(!isset($nome) or $nome == null){
-                    echo("nome invalido");
+                if(!isset($senha) or $senha == null){
+                    echo("senha invalida");
                 }
                 else{
-                    if(!isset($cpf) or $cpf == null){
-                        echo("cpf invalido");
+                    if(!isset($nome) or $nome == null){
+                        echo("nome invalido");
                     }
                     else{
-                        $sql = "INSERT INTO tbusers(nome, email, cpf, senha) VALUES('$nome', '$email', '$cpf', '$senha');";
-                        // $result = $db->query($sql)
+                        if(!isset($cpf) or $cpf == null){
+                            echo("cpf invalido");
+                        }
+                        else{
+                            $sql = "INSERT INTO tbusers(nome, email, cpf, senha) VALUES('$nome', '$email', '$cpf', '$senha');";
 
-                        if($db->query($sql)){
-                            echo("cadastrado");
+                            if($db->query($sql)){
+                                // echo("cadastrado");
+                                $sql = "SELECT * FROM tbusers WHERE email = '$email' and senha = '$senha';";
+                                $result = $db->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    $row = $result->fetch_assoc();
+
+                                    $_SESSION['login'] = $row['id'];
+                                    header('location: ../index.php');
+                                }
+                            }
                         }
                     }
                 }

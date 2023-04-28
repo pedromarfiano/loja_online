@@ -3,7 +3,33 @@ session_start();
 require_once('../config/db.php');
 
 if(isset($_SESSION['login'])){
-    header('../index.php');
+    header('location: ../index.php');
+}
+else{
+    if(isset($_POST['btn'])){
+        $email = $_POST['email'];
+        $senha = md5($_POST['pass']);
+        
+        if(!isset($email) or $email == null){
+            echo("email invalido");
+        }
+        else{
+            if(!isset($senha) or $senha == null){
+                echo("senha invalida");
+            }
+            else{
+                $sql = "SELECT * FROM tbusers WHERE email = '$email' and senha = '$senha';";
+                $result = $db->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+
+                    $_SESSION['login'] = $row['id'];
+                    header('location: ../index.php');
+                }
+            }
+        }
+    }
 }
 
 
@@ -30,12 +56,12 @@ if(isset($_SESSION['login'])){
 
             <form action="login.php" method="post">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required>
     
                 <label for="pass">Senha</label>
-                <input type="password" name="pass" id="pass">
+                <input type="password" name="pass" id="pass" required>
     
-                <button type="submit">login</button>
+                <button type="submit" name="btn" value="true">login</button>
             </form>
             <nav>
                 <a href="#">Esqueci minha senha</a>

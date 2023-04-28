@@ -5,11 +5,12 @@ require('./config/db.php');
 if(isset($_SESSION['login'])){
 
     $id = $_SESSION['login'];
-    $sql = "SELECT * FROM tbusers WHERE users_id = "."$id".";";
+    $sql = "SELECT * FROM tbusers WHERE id = '$id';";
     $result = $db->query($sql);
 
     if($result->num_rows > 0){
-        echo("logado!");
+        $row = $result->fetch_assoc();
+        echo($row['nome']);
     }
 }
 
@@ -29,5 +30,6 @@ if(isset($_SESSION['login'])){
 <body>
     <a href="views/login.php">login</a>
     <a href="views/cadastro.php">cadastro</a>
+    <a href="config/sair.php">sair</a>
 </body>
 </html>
