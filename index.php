@@ -1,5 +1,6 @@
 <?php
-require_once('config/db.php');
+session_start();
+require('./config/db.php');
 
 if(isset($_SESSION['login'])){
 
@@ -26,6 +27,7 @@ if(isset($_SESSION['login'])){
     <title>HOME</title>
 </head>
 <body>
-    
+    <a href="views/login.php">login</a>
+    <a href="views/cadastro.php">cadastro</a>
 </body>
 </html>

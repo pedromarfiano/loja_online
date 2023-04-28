@@ -1,5 +1,6 @@
 <?php
-require_once('config/db.php');
+session_start();
+require_once('../config/db.php');
 
 if(isset($_SESSION['login'])){
     header('../index.php');
@@ -40,7 +41,7 @@ if(isset($_SESSION['login'])){
                 <a href="#">Esqueci minha senha</a>
                 <a href="cadastro.php">Cadastro</a>
             </nav>
-        </div>
+        </div> 
     </main>
 </body>
 </html>
