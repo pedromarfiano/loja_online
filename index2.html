@@ -1,0 +1,101 @@
+    
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public/css/base.css">
+    <style>
+        #myaccont form{
+            min-width: 500px;
+            width: 50%;
+            margin: auto;
+        }
+        #myaccont button{
+            width: 20%;
+            height: 1.4rem;
+        }
+    </style>
+    <title>HOME</title>
+</head>
+<body>
+    <header>
+        <div class="menu">
+            <div class="logo"><a href="index.php"><img src="https://i.pinimg.com/originals/f2/93/d4/f293d4ebcffcbfb9395ac8ca728c23ec.png" alt="logo"></a></div>
+            <div class="search-bar">
+                <form action="views/pesquisa.php" method="get">
+                    <input type="search" name="search" id="search-bar" placerouder="Pesquisar...">
+                    <button type="submit">pesquisar</button>
+                </form>
+            </div>
+            <div class="user-accont">
+                <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="imagem de usuario">
+            </div>
+        </div>
+        <nav>
+            <div>
+                <a href="views/novidades.php">
+                    <p>novidades</p>
+                </a>
+                <a href="views/acessorios.php">
+                    <p>acessorios</p>
+                </a>
+                <a href="views/jogos.php">
+                    <p>jogos</p>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+        <section id="myaccont">
+            <form action="myaccont.php" method="post" class="form-inputs" enctype="multipart/form-data">
+    
+    <!--             <input type="file" name="foto" id="foto">
+     -->
+                <div class="input-box">
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" >
+                </div>
+                <div class="input-box">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div class="input-box">
+                     <label for="cpf">Cpf</label>
+                    <input type="text" name="cpf" id="cpf" >
+                </div>
+                <div class="input-box">
+                     <label for="pass">Senha</label>
+                    <input type="password" name="pass" id="pass" >
+                </div>
+                <div class="button-box">
+                    <button type="submit" name="btn" value="true">cadastrar</button>
+                </div>
+            </form>
+            </section>
+    </main>
+    <footer>
+        <div class="redes-sociais">
+            <a href="">
+                <p>instagram</p>
+            </a>
+            <a href="">
+                <p>linkedin</p>
+            </a>
+            <a href="">
+                <p>github</p>
+            </a>
+        </div>
+        <div>
+            <p>numero</p>
+            <p>(88) 98888-8888</p>
+        </div>
+    </footer>
+</body>
+<script src="public/js/menu_mobile.js"></script>
+</html>

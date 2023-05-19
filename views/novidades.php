@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./config/db.php');
+require('../config/db.php');
 
 if(isset($_SESSION['login'])){
 
@@ -11,7 +11,7 @@ if(isset($_SESSION['login'])){
     if($result->num_rows > 0){
         $row = $result->fetch_assoc();
     }
-
+    
 }
 
 
@@ -25,15 +25,15 @@ if(isset($_SESSION['login'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/css/base.css">
-    <title>HOME</title>
+    <link rel="stylesheet" href="../public/css/base.css">
+    <title>NOVIDADES</title>
 </head>
 <body>
-    <header>
+<header>
         <div class="menu">
-            <div class="logo"><a href="index.php"><img src="https://i.pinimg.com/originals/f2/93/d4/f293d4ebcffcbfb9395ac8ca728c23ec.png" alt="logo"></a></div>
+        <div class="logo"><a href="../index.php"><img src="https://i.pinimg.com/originals/f2/93/d4/f293d4ebcffcbfb9395ac8ca728c23ec.png" alt="logo"></a></div>
             <div class="search-bar">
-                <form action="views/pesquisa.php" method="get">
+                <form action="pesquisa.php" method="get">
                     <input type="search" name="search" id="search-bar" placerouder="Pesquisar...">
                     <button type="submit">pesquisar</button>
                 </form>
@@ -46,9 +46,9 @@ if(isset($_SESSION['login'])){
                         <div class="accont">
                             <img src="'.$row['img'].'" alt="imagem de usuario">
                             <ul>
-                                <li><a href="views/myaccont.php"><p>minha conta</p></a></li>
-                                <li><a href="views/carrinho.php"><p>carinho</p></a></li>
-                                <li><a href="config/sair.php"><p>sair</p></a></li>
+                                <li><a href="myaccont.php"><p>minha conta</p></a></li>
+                                <li><a href="carrinho.php"><p>carinho</p></a></li>
+                                <li><a href="../config/sair.php"><p>sair</p></a></li>
                             </ul>
                         </div>');
                     } else{
@@ -59,20 +59,20 @@ if(isset($_SESSION['login'])){
         </div>
         <nav>
             <div>
-                <a href="views/novidades.php">
+                <a href="novidades.php">
                     <p>novidades</p>
                 </a>
-                <a href="views/acessorios.php">
+                <a href="acessorios.php">
                     <p>acessorios</p>
                 </a>
-                <a href="views/jogos.php">
+                <a href="jogos.php">
                     <p>jogos</p>
                 </a>
                 <?php
                     if(isset($_SESSION['login'])){
                     if($row['permicao'] == 'administrador' or $row['permicao'] == 'super administrador'){
                         echo('
-                        <a href="views/cadastro_produtos.php">
+                        <a href="cadastro_produtos.php">
                             <p>cadastro de produtos</p>
                         </a>
                         ');
@@ -85,8 +85,8 @@ if(isset($_SESSION['login'])){
                 echo('
                 <nav>
                     <div>
-                        <a href="views/login.php"><p>login</p></a>
-                        <a href="views/cadastro.php"><p>cadastro</p></a>
+                        <a href="login.php"><p>login</p></a>
+                        <a href="cadastro.php"><p>cadastro</p></a>
                     </div>
                 </nav>
                 ');
@@ -97,9 +97,33 @@ if(isset($_SESSION['login'])){
 
 
     <main>
-        <section></section>
-        <section></section>
-        <section></section>
+        <section class="novidades">
+            <div>
+                <h1>titulo</h1>
+                <p>texto grande que eu to com preguiça de escrever e por isso estou enrolando com isso que esta escrito.</p>
+            </div>
+            <div>
+                <img src="" alt="imagem referente a noticia">
+            </div>
+        </section>
+        <section class="novidades">
+            <div>
+                <h1>titulo</h1>
+                <p>texto grande que eu to com preguiça de escrever e por isso estou enrolando com isso que esta escrito.</p>
+            </div>
+            <div>
+                <img src="" alt="imagem referente a noticia">
+            </div>
+        </section>
+        <section class="novidades">
+            <div>
+                <h1>titulo</h1>
+                <p>texto grande que eu to com preguiça de escrever e por isso estou enrolando com isso que esta escrito.</p>
+            </div>
+            <div>
+                <img src="" alt="imagem referente a noticia">
+            </div>
+        </section>
     </main>
     <footer>
         <div class="redes-sociais">
@@ -119,5 +143,5 @@ if(isset($_SESSION['login'])){
         </div>
     </footer>
 </body>
-<script src="public/js/menu_mobile.js"></script>
+<script src="../public/js/menu_mobile.js"></script>
 </html>

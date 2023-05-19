@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./config/db.php');
+require('../config/db.php');
 
 if(isset($_SESSION['login'])){
 
@@ -11,7 +11,16 @@ if(isset($_SESSION['login'])){
     if($result->num_rows > 0){
         $row = $result->fetch_assoc();
     }
+    
+}
 
+if(isset($_GET['remover'])){
+    
+    unset($_SESSION['carrinho'][$_GET['remover']]);
+    if(count($_SESSION['carrinho'])- 5 == 1){
+        unset($_SESSION['carrinho']);
+    }
+    
 }
 
 
@@ -25,15 +34,15 @@ if(isset($_SESSION['login'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/css/base.css">
-    <title>HOME</title>
+    <link rel="stylesheet" href="../public/css/base.css">
+    <title>CARRINHO</title>
 </head>
 <body>
-    <header>
+<header>
         <div class="menu">
-            <div class="logo"><a href="index.php"><img src="https://i.pinimg.com/originals/f2/93/d4/f293d4ebcffcbfb9395ac8ca728c23ec.png" alt="logo"></a></div>
+        <div class="logo"><a href="../index.php"><img src="https://i.pinimg.com/originals/f2/93/d4/f293d4ebcffcbfb9395ac8ca728c23ec.png" alt="logo"></a></div>
             <div class="search-bar">
-                <form action="views/pesquisa.php" method="get">
+                <form action="pesquisa.php" method="get">
                     <input type="search" name="search" id="search-bar" placerouder="Pesquisar...">
                     <button type="submit">pesquisar</button>
                 </form>
@@ -46,9 +55,9 @@ if(isset($_SESSION['login'])){
                         <div class="accont">
                             <img src="'.$row['img'].'" alt="imagem de usuario">
                             <ul>
-                                <li><a href="views/myaccont.php"><p>minha conta</p></a></li>
-                                <li><a href="views/carrinho.php"><p>carinho</p></a></li>
-                                <li><a href="config/sair.php"><p>sair</p></a></li>
+                                <li><a href="myaccont.php"><p>minha conta</p></a></li>
+                                <li><a href="carrinho.php"><p>carinho</p></a></li>
+                                <li><a href="../config/sair.php"><p>sair</p></a></li>
                             </ul>
                         </div>');
                     } else{
@@ -59,20 +68,20 @@ if(isset($_SESSION['login'])){
         </div>
         <nav>
             <div>
-                <a href="views/novidades.php">
+                <a href="novidades.php">
                     <p>novidades</p>
                 </a>
-                <a href="views/acessorios.php">
+                <a href="acessorios.php">
                     <p>acessorios</p>
                 </a>
-                <a href="views/jogos.php">
+                <a href="jogos.php">
                     <p>jogos</p>
                 </a>
                 <?php
                     if(isset($_SESSION['login'])){
                     if($row['permicao'] == 'administrador' or $row['permicao'] == 'super administrador'){
                         echo('
-                        <a href="views/cadastro_produtos.php">
+                        <a href="cadastro_produtos.php">
                             <p>cadastro de produtos</p>
                         </a>
                         ');
@@ -85,8 +94,8 @@ if(isset($_SESSION['login'])){
                 echo('
                 <nav>
                     <div>
-                        <a href="views/login.php"><p>login</p></a>
-                        <a href="views/cadastro.php"><p>cadastro</p></a>
+                        <a href="login.php"><p>login</p></a>
+                        <a href="cadastro.php"><p>cadastro</p></a>
                     </div>
                 </nav>
                 ');
@@ -97,9 +106,40 @@ if(isset($_SESSION['login'])){
 
 
     <main>
-        <section></section>
-        <section></section>
-        <section></section>
+        <div class="container">
+            <h1>Seus produtos</h1>
+            <?php
+            //echo(count($_SESSION['carrinho'])- 4);
+            //print_r($_SESSION['carrinho']);
+
+            if(isset($_SESSION['carrinho'])){
+                for($i = 0; $i <= count($_SESSION['carrinho'])-6; $i++){                    
+                    if(isset($_SESSION['carrinho'][$i])){
+                        $value = $_SESSION['carrinho'][$i];
+                        echo('
+                        <div>
+                            <img src="'.$value['img'].'" alt="imagem do produto">
+                            <h2>'.$value['nome'].'</h2>
+                            <p>'.$value['descricao'].'</p>
+                            <h3>'.$value['preco'].'</h3>
+                            <button><a href="?remover='.$i.'"><p>remover do carrinho</p></a></button> <button><a href="#"><p>comprar</p></a></button>
+                        </div>
+                        ');
+                    }
+                }
+                echo('
+                <div>
+                    <button>
+                       <a href="#">
+                           <p>Finalizar compra</p>
+                        </a>
+                    </button>
+                </div>
+                ');
+            }
+            
+            ?>
+        </div>
     </main>
     <footer>
         <div class="redes-sociais">
@@ -119,5 +159,5 @@ if(isset($_SESSION['login'])){
         </div>
     </footer>
 </body>
-<script src="public/js/menu_mobile.js"></script>
+<script src="../public/js/menu_mobile.js"></script>
 </html>
